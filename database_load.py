@@ -130,4 +130,4 @@ for e in category_json['all_categories']:
     session.commit()
 '''
 
-print "added categories and items with users!"
+print("added categories and items with users!")

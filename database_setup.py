@@ -76,6 +76,6 @@ class Item(Base):
       }
 
 #Create the new database after running this file
-engine = create_engine('sqlite:///shoppingcatalog.db')
+#engine = create_engine('sqlite:////var/www/catalog/shoppingcatalog.db')
 
-Base.metadata.create_all(engine)
+#Base.metadata.create_all(engine)

@@ -64,10 +64,8 @@ function signInCallback(authResult){
 <!-- Facebook Login -->
 
 <script>
-
-
-  window.fbAsyncInit = function() {
-    FB.init({
+window.fbAsyncInit = function() {
+	  FB.init({
       appId      : '724974571021594' ,
       cookie     : true,
       xfbml      : true,
@@ -83,12 +81,12 @@ function signInCallback(authResult){
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+</script>
 
-
-
+<script>
 //Seding new Token back to the server
 function sendTokenToServer() {
-    
+   console.log('Send Token'); 
 	var access_token = FB.getAuthResponse()['accessToken'];
    console.log(access_token)
    console.log('Welcome!  Fetching your information.... ');
@@ -114,13 +112,11 @@ function sendTokenToServer() {
         			$('#result').html('Failed to make a server-side call. Check your configuration and console.');
          	}
       	}
-
   		});
 	});
 }
 
 </script>
-
 
 <!-- Facebook button -->
 <button>
@@ -129,6 +125,7 @@ function sendTokenToServer() {
 	</fb:login-button>
 </button>
 
+<p id="tester">Help</p>
 <!-- End Facebook Login -->
 
 {% endblock %}

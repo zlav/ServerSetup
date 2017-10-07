@@ -1,4 +1,5 @@
 #! /usr/bin/ python
+print("hello")
 from flask import Flask, render_template, request, redirect, jsonify
 from flask import url_for, flash
 from functools import wraps
@@ -18,13 +19,16 @@ import json
 from flask import make_response
 import requests
 
-CLIENT_ID = json.loads(open('client_secrets.json', 'r').
+path = "/var/www/catalog/"
+
+CLIENT_ID = json.loads(open('/var/www/catalog/client_secrets.json', 'r').
                        read())['web']['client_id']
 
 app = Flask(__name__)
+app.secret_key = 'super_secret_key'
 
 # Connect to Database and create database session
-engine = create_engine('sqlite:///shoppingcatalog.db')
+engine = create_engine('sqlite:////var/www/catalog/shoppingcatalog.db?check_same_thread=False')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -68,7 +72,7 @@ def showCatalog():
     catalog = session.query(Category).order_by(asc(Category.name))
     items = session.query(Item).order_by(Item.id.desc()).limit(10)
     if 'username' not in login_session:
-        print "help"
+        print("help")
         return render_template('catalogpublic.html',
                                catalog=catalog, items=items)
     print(login_session['username'])
@@ -80,7 +84,7 @@ def showCatalog():
 @login_required
 def newCategory():
     if 'username' not in login_session:
-        print "help"
+        print("help")
         return redirect('/login')
     if request.method == 'POST':
         newCategory = Category(name=request.form['name'],
@@ -249,8 +253,7 @@ def deleteItem(category_id, item_id):
 
 @app.route('/login')
 def showlogin():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits)for x in range(32))
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
@@ -268,7 +271,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('/var/www/catalog/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -282,7 +285,7 @@ def gconnect():
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
            % access_token)
     h = httplib2.Http()
-    result = json.loads(h.request(url, 'GET')[1])
+    result = json.loads(h.request(url, 'GET')[1].decode())
 
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
@@ -302,7 +305,7 @@ def gconnect():
     if result['issued_to'] != CLIENT_ID:
         response = make_response(
             json.dumps("Token's client ID does not match app's."), 401)
-        print "Token's client ID does not match app's."
+        print("Token's client ID does not match app's.")
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -399,29 +402,28 @@ def gdisconnect():
 
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
-
+    print("FB Connect")
     # Check if the states match, if not exit
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    access_token = request.data
-    print("User AToken: " + access_token)
+    access_token = request.data.decode('unicode_escape')
     # Exchange client Token for long lived server token
-    app_id = json.loads(open('fb_client_secrets.json', 'r').
+    app_id = json.loads(open('/var/www/catalog/fb_client_secrets.json', 'r').
                         read())['web']['app_id']
-    app_secret = json.loads(open('fb_client_secrets.json', 'r').
+    app_secret = json.loads(open('/var/www/catalog/fb_client_secrets.json', 'r').
                             read())['web']['app_secret']
     url = 'https://graph.facebook.com/oauth/access_token?grant_type='
     url += 'fb_exchange_token&client_id=%s' % app_id
     url += '&client_secret=%s&' % app_secret
     url += 'fb_exchange_token=%s' % access_token
-
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
-
+    results = json.loads(h.request(url, 'GET')[1].decode()) 
+    print(results)
     # Retrieve User Information and strip the expire tag
-    token = json.loads(result)["access_token"].split("&")[0]
+    token = results["access_token"].split("&")[0]
     url = 'https://graph.facebook.com/v2.8/me?access_token='
     url += '%s&fields=name,id,email,picture' % token
     h = httplib2.Http()
@@ -429,7 +431,7 @@ def fbconnect():
     login_session['access_token'] = token
 
     # Assing data to the login_session variable
-    data = json.loads(result)
+    data = json.loads(result.decode())
     login_session['username'] = data["name"]
     login_session['email'] = data["email"]
     login_session['facebook_id'] = data["id"]
@@ -494,6 +496,6 @@ def disconnect():
         return redirect(url_for('showCatalog'))
 
 if __name__ == '__main__':
-    app.secret_key = 'super_secret_key'
-    app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    # app.debug = True
+    # app.run(host='0.0.0.0', port=5000)
+    app.run()
