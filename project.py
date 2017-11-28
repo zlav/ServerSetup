@@ -66,13 +66,18 @@ def categoriesJSON():
 
 # Show the catalog
 @app.route('/')
+@app.route('/portfolio/')
+def showMain():
+    print("Showing portfolio")
+    return render_template('portfolio.html')
+
 @app.route('/catalogpublic/')
 @app.route('/catalog/')
 def showCatalog():
     catalog = session.query(Category).order_by(asc(Category.name))
     items = session.query(Item).order_by(Item.id.desc()).limit(10)
     if 'username' not in login_session:
-        print("help")
+        print("helper")
         return render_template('catalogpublic.html',
                                catalog=catalog, items=items)
     print(login_session['username'])
@@ -496,6 +501,6 @@ def disconnect():
         return redirect(url_for('showCatalog'))
 
 if __name__ == '__main__':
-    # app.debug = True
+    app.debug = True
     # app.run(host='0.0.0.0', port=5000)
     app.run()
