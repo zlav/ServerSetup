@@ -1,0 +1,67 @@
+<!doctype html>
+
+<html lang="en">
+	<head> <title>Zachary LaVallee - Portfolio </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8">
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='portfolio.css') }}">
+	</head>
+
+	<body>
+		<!-- Page Container -->
+		<div class="container">
+	
+			<header>
+				<div class="logobox">
+					<img src="{{url_for('static', filename='headshot.png')}}" alt="Zach LaVallee Headshot" class="logo">
+				</div>
+				<div class="name">
+					<h1>Zachary LaVallee</h1>
+					<h2>Portfolio</h2>
+				</div>
+			</header>
+
+			<hr>
+
+			<!-- Middle Background -->
+			<div class="photo">
+				<img src="{{url_for('static', filename='keyboard.jpg')}}" alt="Keyboard Background" class="bgimg">
+			</div>
+
+			<!-- Featured Work -->
+			<div id="featwork">
+				<p>Featured Work</p>
+			</div>
+
+			<!-- Project Section -->
+			<section class="projects">
+				<figure class="projectbox">
+					<div class="projectimg">
+						<img src="{{url_for('static', filename='emonixsystem.png')}}" alt="Image of Emonix Water Softening System">	
+					</div>
+					<a href="https://www.emonix.io" target="_blank">	
+						<img src="{{url_for('static', filename='emonix.png')}}" alt="Emonix Inc. Logo Link" class="projectlogo">
+					</a>
+				</figure>
+				<figure class="projectbox">
+					<div class="projectimg">
+						<img src="{{url_for('static', filename='theater.jpg')}}" alt="Movie Theater Image">
+					</div>
+					<h3>
+						<a href="https://www.movies.zachlavallee.com" class="link">Movie Trailer Site</a>
+					</h3>
+				</figure>
+				<figure class="projectbox">
+					<div class="projectimg">
+						<img src="{{url_for('static', filename='neighborhood.jpg')}}" alt="Stock Image of Neighborhood">
+					</div>
+					<h3>
+						<a href="http://www.map.zachlavallee.com" class="link">Neighborhood Map</a>
+					</h3>
+				</figure>
+			</section>
+
+		</div>
+	</body>
+</html>
+
