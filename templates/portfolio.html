@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8">
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='portfolio.css') }}">
+		<link rel="icon" type="image/png" sizes="96x96" href="static/favicon.ico">
 	</head>
 
 	<body>
@@ -20,9 +21,7 @@
 					<h2>Portfolio</h2>
 				</div>
 			</header>
-
 			<hr>
-
 			<!-- Middle Background -->
 			<div class="photo">
 				<img src="{{url_for('static', filename='keyboard.jpg')}}" alt="Keyboard Background" class="bgimg">
@@ -37,28 +36,36 @@
 			<!-- Project Section -->
 			<section class="projects">
 				<figure class="projectbox">
+					<a href="https://www.emonix.io" target="_blank">	
 					<div class="projectimg">
 						<img src="{{url_for('static', filename='emonixsystem.png')}}" alt="Image of Emonix Water Softening System">	
 					</div>
-					<a href="https://www.emonix.io" target="_blank">	
 						<img src="{{url_for('static', filename='emonix.png')}}" alt="Emonix Inc. Logo Link" class="projectlogo">
+					</a>
+					<a href="https://login.emonix.io" target="_blank">
+						<h5> Email: DataDemo 
+						<br> Password: demo </h5>
 					</a>
 				</figure>
 				<figure class="projectbox">
-					<div class="projectimg">
-						<img src="{{url_for('static', filename='Catalog.png')}}" alt="Catalog Image">
-					</div>
-					<h3>
-						<a href="{{url_for('showCatalog')}}" class="link">Shopping Catalog</a>
-					</h3>
+					<a href="{{url_for('showCatalog')}}" class="link">
+						<div class="projectimg">
+							<img src="{{url_for('static', filename='Catalog.png')}}" alt="Catalog Image">
+						</div>
+						<h3>
+							Shopping Catalog
+						</h3>
+					</a>
 				</figure>
 				<figure class="projectbox">
-					<div class="projectimg">
-						<img src="{{url_for('static', filename='map.png')}}" alt="Map of Chicago">
-					</div>
-					<h3>
-						<a href="http://www.map.zachlavallee.com" class="link">Favorite Chicago Places</a>
-					</h3>
+					<a href="http://www.map.zachlavallee.com" class="link">
+						<div class="projectimg">
+							<img src="{{url_for('static', filename='map.png')}}" alt="Map of Chicago">
+						</div>
+						<h3>
+							Favorite Places
+						</h3>
+					</a>
 				</figure>
 			</section>
 
