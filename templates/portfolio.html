@@ -18,13 +18,16 @@
 				</div>
 				<div class="name">
 					<h1>Zachary LaVallee</h1>
-					<h2>Portfolio</h2>
+					<h2><a href="{{url_for('static', filename='resume.pdf')}}" target="_blank">Resume</a> | <a href="https://github.com/zlav" target="_blank">GitHub</a> | <a href="https://www.linkedin.com/in/zach-lavallee-82832158" target="_blank">LinkedIn</a> </h2>
 				</div>
 			</header>
 			<hr>
+			
+
+			
 			<!-- Middle Background -->
 			<div class="photo">
-				<img src="{{url_for('static', filename='keyboard.jpg')}}" alt="Keyboard Background" class="bgimg">
+				<img src="{{url_for('static', filename='STL-Skyline-HD-narrow.jpg')}}" alt="Keyboard Background" class="bgimg">
 			</div>
 
 			<!-- Featured Work -->
@@ -36,7 +39,7 @@
 			<!-- Project Section -->
 			<section class="projects">
 				<figure class="projectbox">
-					<a href="https://www.emonix.io" target="_blank">	
+					<a href="https://www.emonix.io" target="_blank">
 					<div class="projectimg">
 						<img src="{{url_for('static', filename='emonixsystem.png')}}" alt="Image of Emonix Water Softening System">	
 					</div>
@@ -68,7 +71,6 @@
 					</a>
 				</figure>
 			</section>
-
 		</div>
 	</body>
 </html>
