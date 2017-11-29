@@ -3,8 +3,7 @@
 ## Connection Information
 
 IP Address: 18.220.194.215
-SSH Port: 2200
-URL: http://18.220.194.215
+URL: http://zachlavallee.com
 
 ## Installed Software
 
