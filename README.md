@@ -1,4 +1,6 @@
 # Server Setup Readme
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fzlav%2FServerSetup.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fzlav%2FServerSetup?ref=badge_shield)
+
 
 ## Connection Information
 
@@ -14,3 +16,7 @@ No changes made besides the neccesary ones to ensure flask can run on modwsgi th
 
 StackOverflow, Flask documentation, Facebook documentation, and sqlalchemy documentation.
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fzlav%2FServerSetup.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fzlav%2FServerSetup?ref=badge_large)
